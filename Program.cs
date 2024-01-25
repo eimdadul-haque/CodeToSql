@@ -6,13 +6,14 @@ using Microsoft.Extensions.DependencyInjection;
 
 public class Program
 {
-    public static async void Main(string[] args)
+    public static void Main(string[] args)
     {
         var serviceProvider = new ServiceCollection()
             .ServiceResolve()
+            .ConsumerResolve()
             .BuildServiceProvider();
 
-        var sqlGeneratorService = serviceProvider.GetService<SqlGenerator>();
-        string sqlQuery = await sqlGeneratorService.Generate();
+        string sql = string.Empty;
+        Task.Run(async () => { sql = await sqlGeneratorService.Generate(); }); 
     }
 }

@@ -1,4 +1,6 @@
-﻿using CodeToSql.IServices;
+﻿using CodeToSql.Consumer;
+using CodeToSql.IConsumer;
+using CodeToSql.IServices;
 using CodeToSql.Services;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -17,6 +19,8 @@ public static class Consumer
 {
     public static IServiceCollection ConsumerResolve(this IServiceCollection services)
     {
+        services.AddTransient<ISqlQueryProvider, SqlQueryProvider>();
+
         return services;
     }
 }
